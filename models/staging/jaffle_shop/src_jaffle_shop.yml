@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: aryton-sandbox
+    schema: jaffle_shop_raw
+    tables:
+      - name: raw_customers
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: raw_orders
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: raw_payments
+        freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
